@@ -84,7 +84,7 @@ const deleteProduce = async (req, res) => {
     },
   });
 
-  res.status(204).json({ message: 'Success', data: deletedProduce });
+  res.status(200).json({ message: 'Success', data: deletedProduce });
 };
 
 module.exports = {
