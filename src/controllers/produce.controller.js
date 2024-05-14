@@ -45,13 +45,18 @@ const getProduceById = async (req, res) => {
 };
 
 const addProduce = async (req, res) => {
-  const { name, quantity, farmerId } = req.body;
+  const { name, quantity } = req.body;
+  const farmer = await prisma.farmer.findUnique({
+    where: {
+      userId: req.user.id,
+    },
+  });
 
   const produce = await prisma.produce.create({
     data: {
       name,
       quantity,
-      farmerId,
+      farmerId: farmer.id,
     },
   });
 

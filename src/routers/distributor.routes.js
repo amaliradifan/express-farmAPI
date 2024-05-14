@@ -1,11 +1,11 @@
 const express = require('express');
 
-const { getAllFarmers } = require('../controllers');
+const { getAllDistributors } = require('../controllers');
 const tryCatch = require('../utils/tryCatch');
 
 const router = express.Router();
 
-router.route('/farmers')
-  .get(tryCatch(getAllFarmers));
+router.route('/distributors')
+  .get(tryCatch(getAllDistributors));
 
 module.exports = router;

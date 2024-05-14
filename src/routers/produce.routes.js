@@ -5,16 +5,19 @@ const {
   updateProduce,
 } = require('../controllers');
 const tryCatch = require('../utils/tryCatch');
-const validateMovie = require('../middleware/validation/produce-validation');
+const validateProduce = require('../middleware/validation/produce-validation');
+const isLoggedIn = require('../middleware/auth/isLoggedIn');
+const isFarmer = require('../middleware/auth/isFarmer');
+const isAuthor = require('../middleware/auth/isAuthor');
 
 const router = express.Router();
 
 router.route('/produces')
   .get(getAllProduce)
-  .post(validateMovie, tryCatch(addProduce));
+  .post(isLoggedIn, isFarmer, validateProduce, tryCatch(addProduce));
 router.route('/produces/:id')
   .get(tryCatch(getProduceById))
-  .put(tryCatch(updateProduce))
-  .delete(tryCatch(deleteProduce));
+  .put(isLoggedIn, isAuthor, tryCatch(updateProduce))
+  .delete(isLoggedIn, isAuthor, tryCatch(deleteProduce));
 
 module.exports = router;

@@ -10,19 +10,4 @@ const getAllFarmers = async (req, res) => {
   });
 };
 
-const addFarmer = async (req, res) => {
-  const { name } = req.body;
-
-  const farmer = await prisma.farmer.create({
-    data: {
-      name,
-    },
-  });
-
-  res.status(201).json({
-    message: 'Success',
-    data: farmer,
-  });
-};
-
-module.exports = { getAllFarmers, addFarmer };
+module.exports = { getAllFarmers };
