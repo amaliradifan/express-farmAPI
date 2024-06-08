@@ -1,4 +1,3 @@
-const jwt = require('jsonwebtoken');
 const { PrismaClient } = require('@prisma/client');
 const AuthorizationError = require('../../errors/AuthorizationError');
 

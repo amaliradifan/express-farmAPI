@@ -92,6 +92,28 @@ const deleteProduce = async (req, res) => {
   res.status(200).json({ message: 'Success', data: deletedProduce });
 };
 
+const getProducesByFarmer = async (req, res) => {
+  const { farmerId } = req.params;
+
+  const produces = await prisma.produce.findMany({
+    where: {
+      farmerId,
+    },
+    include: {
+      farmer: {
+        select: {
+          name: true,
+        },
+      },
+    },
+  });
+
+  res.status(200).json({
+    message: 'Success',
+    data: produces,
+  });
+};
+
 module.exports = {
-  getAllProduce, getProduceById, addProduce, deleteProduce, updateProduce,
+  getAllProduce, getProduceById, addProduce, deleteProduce, updateProduce, getProducesByFarmer,
 };

@@ -63,4 +63,23 @@ const register = async (req, res) => {
   res.status(201).json({ message: 'Success', data: user });
 };
 
-module.exports = { getAllUsers, register };
+const getUserById = async (req, res) => {
+  const { id } = req.params;
+
+  const user = await prisma.user.findUnique({
+    where: {
+      id,
+    },
+  });
+
+  if (!user) {
+    throw new ClientError('User tidak ditemukan');
+  }
+
+  res.status(200).json({
+    message: 'Success',
+    data: user,
+  });
+};
+
+module.exports = { getAllUsers, register, getUserById };
